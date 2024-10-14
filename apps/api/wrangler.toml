@@ -2,6 +2,7 @@ name = "todoapp-api"
 main = "src/index.ts"
 compatibility_date = "2024-10-14"
 compatibility_flags = ["nodejs_compat"]
+minify = true
 
 # [vars]
 # MY_VAR = "my-variable"
