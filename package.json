@@ -1,6 +1,7 @@
 {
-    "name": "todoapp-react-expo-hono-authjs-drizzle-cloudflare-pwa",
+    "name": "todoapp",
     "private": true,
+    "version": "0.0.0",
     "scripts": {
         "preinstall": "npx only-allow pnpm",
         "build": "turbo build",
