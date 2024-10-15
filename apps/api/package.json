@@ -4,7 +4,8 @@
     "version": "0.0.0",
     "scripts": {
         "dev": "wrangler dev",
-        "deploy": "wrangler deploy --minify"
+        "deploy": "wrangler deploy --minify",
+        "deploy:prod": "pnpm wrangler deploy --minify src/index.ts --env prod --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA"
     },
     "dependencies": {
         "hono": "^4.6.4"

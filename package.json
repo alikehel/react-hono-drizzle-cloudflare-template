@@ -6,6 +6,8 @@
         "preinstall": "npx only-allow pnpm",
         "build": "turbo build",
         "dev": "turbo dev",
+        "web": "pnpm --filter web",
+        "api": "pnpm --filter api",
         "typecheck": "turbo typecheck",
         "lint": "biome check .",
         "lint:fix": "biome check . --write",
