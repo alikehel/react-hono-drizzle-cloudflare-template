@@ -14,6 +14,8 @@ jobs:
                 working-directory: ./apps/api
         steps:
             - uses: actions/checkout@v4
+            - name: Install pnpm
+              run: npm install -g pnpm
             - name: Deploy
               uses: cloudflare/wrangler-action@v3
               with:
