@@ -1,9 +1,10 @@
 {
-    "name": "@todoapp/api",
+    "name": "api",
     "private": true,
     "version": "0.0.0",
     "scripts": {
         "dev": "pnpm wrangler dev --live-reload src/index.ts --env dev",
+        "typecheck": "tsc --noEmit",
         "deploy": "wrangler deploy --minify",
         "deploy:stage": "pnpm wrangler deploy --minify src/index.ts --env stage --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
         "deploy:prod": "pnpm wrangler deploy --minify src/index.ts --env prod --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA"
