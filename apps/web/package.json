@@ -7,7 +7,8 @@
         "dev": "vite",
         "build": "tsc -b && vite build",
         "preview": "vite preview",
-        "deploy:prod": "pnpm wrangler pages deploy ./dist --project-name todoapp-web"
+        "deploy:stage": "pnpm wrangler pages deploy ./dist --project-name todoapp-web-stage --branch \"stage\" --commit-hash \"$GITHUB_SHA\" --commit-message \"stage deployment\"",
+        "deploy:prod": "pnpm wrangler pages deploy ./dist --project-name todoapp-web-prod"
     },
     "dependencies": {
         "react": "^18.3.1",

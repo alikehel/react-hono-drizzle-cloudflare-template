@@ -1,0 +1,76 @@
+name: CI - Stage
+on:
+    workflow_dispatch:
+        inputs:
+            target:
+                description: "Deploy target (web, api, or both)"
+                required: true
+                default: "both"
+                type: choice
+                options:
+                    - web
+                    - api
+                    - both
+    # note: push is required to register this workflow
+    push:
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+permissions:
+    actions: write
+    contents: read
+jobs:
+    deploy-web:
+        name: 🚀 Deploy web to stage
+        if: ${{ github.event_name == 'workflow_dispatch' &&  (github.event.inputs.target == 'web' || github.event.inputs.target == 'both') }}
+        runs-on: ubuntu-latest
+        env:
+            CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+            CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+            GITHUB_REF_NAME: ${{ github.ref_name }}
+            GITHUB_SHA: ${{ github.sha }}
+        steps:
+            - name: ⬇️ Checkout repo
+              uses: actions/checkout@v4
+            - uses: pnpm/action-setup@v3
+              name: Install pnpm
+              with:
+                  version: 9
+                  run_install: false
+            - name: ⎔ Setup node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22.9.0
+            - name: 📥 Install deps
+              run: pnpm install
+            - name: ⚙️ Build
+              run: pnpm build
+            - name: 🚀 Deploy web to stage
+              run: pnpm run web deploy:stage
+    deploy-api:
+        name: 🚀 Deploy api to stage
+        if: ${{ github.event_name == 'workflow_dispatch' &&  (github.event.inputs.target == 'api' || github.event.inputs.target == 'both') }}
+        runs-on: ubuntu-latest
+        env:
+            CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+            CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+            GITHUB_REF_NAME: ${{ github.ref_name }}
+            GITHUB_SHA: ${{ github.sha }}
+        steps:
+            - name: ⬇️ Checkout repo
+              uses: actions/checkout@v4
+            - uses: pnpm/action-setup@v3
+              name: Install pnpm
+              with:
+                  version: 9
+                  run_install: false
+            - name: ⎔ Setup node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22.9.0
+            - name: 📥 Install deps
+              run: pnpm install
+            - name: ⚙️ Build
+              run: pnpm build
+            - name: 🚀 Deploy api to stage
+              run: pnpm run api deploy:stage
