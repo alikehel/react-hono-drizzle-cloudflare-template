@@ -7,7 +7,7 @@
         "dev": "vite",
         "build": "tsc -b && vite build",
         "preview": "vite preview",
-        "deploy:prod": "pnpm wrangler pages deploy ./dist --project-name todo-web"
+        "deploy:prod": "pnpm wrangler pages deploy ./dist --project-name todoapp-web"
     },
     "dependencies": {
         "react": "^18.3.1",
