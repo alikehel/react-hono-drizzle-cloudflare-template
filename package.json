@@ -1,5 +1,5 @@
 {
-    "name": "todoapp",
+    "name": "react-hono-authjs-drizzle-cloudflare-template",
     "private": true,
     "version": "0.0.0",
     "scripts": {

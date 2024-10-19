@@ -1,4 +1,4 @@
-name = "todoapp-api"
+name = "react-hono-authjs-drizzle-cloudflare-template-api"
 main = "src/app.ts"
 compatibility_date = "2024-10-04"
 compatibility_flags = ["nodejs_compat"]
@@ -8,14 +8,14 @@ minify = true
 vars = { ALLOWED_HOST = "*", ENV = "dev" }
 
 [env.stage]
-name = "todoapp-api-stage"
+name = "react-hono-authjs-drizzle-cloudflare-template-api-stage"
 workers_dev = true
-vars = { ALLOWED_HOST = "https://todoapp-web-stage.pages.dev/", ENV = "stage" }
+vars = { ALLOWED_HOST = "https://react-hono-authjs-drizzle-cloudflare-template-web-stage.pages.dev/", ENV = "stage" }
 
 [env.prod]
-name = "todoapp-api-prod"
+name = "react-hono-authjs-drizzle-cloudflare-template-api-prod"
 workers_dev = true
-vars = { ALLOWED_HOST = "https://todoapp-web-prod.pages.dev/", ENV = "prod" }
+vars = { ALLOWED_HOST = "https://react-hono-authjs-drizzle-cloudflare-template-web-prod.pages.dev/", ENV = "prod" }
 
 # [vars]
 # MY_VAR = "my-variable"

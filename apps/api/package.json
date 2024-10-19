@@ -1,5 +1,5 @@
 {
-    "name": "@todoapp/api",
+    "name": "@react-hono-authjs-drizzle-cloudflare-template/api",
     "private": true,
     "version": "0.0.0",
     "scripts": {
