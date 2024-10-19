@@ -12,7 +12,7 @@ interface AppBindings {
 
 const app = new OpenAPIHono<AppBindings>();
 
-// app.use(logger());
+app.use(logger());
 
 app.get("/", (c) => {
     c.var.logger.warn("Hello, World!");
