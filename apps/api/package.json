@@ -3,11 +3,11 @@
     "private": true,
     "version": "0.0.0",
     "scripts": {
-        "dev": "pnpm wrangler dev --live-reload src/index.ts --env dev",
+        "dev": "pnpm wrangler dev --live-reload --env dev",
         "typecheck": "tsc --noEmit",
         "deploy": "wrangler deploy --minify",
-        "deploy:stage": "pnpm wrangler deploy --minify src/index.ts --env stage --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
-        "deploy:prod": "pnpm wrangler deploy --minify src/index.ts --env prod --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA"
+        "deploy:stage": "pnpm wrangler deploy --minify --env stage --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
+        "deploy:prod": "pnpm wrangler deploy --minify --env prod --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA"
     },
     "dependencies": {
         "@hono/zod-openapi": "^0.16.4",
