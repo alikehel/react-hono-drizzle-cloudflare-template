@@ -6,16 +6,29 @@ minify = true
 
 [env.dev]
 vars = { ALLOWED_HOST = "*", ENV = "dev" }
+d1_databases = [
+    { binding = "DB", database_name = "react-hono-authjs-drizzle-cloudflare-template-db-prod", database_id = "621f28a2-74dd-41ab-8494-62e69326ff72", migrations_dir = "src/db/migrations" },
+]
 
 [env.stage]
 name = "react-hono-authjs-drizzle-cloudflare-template-api-stage"
 workers_dev = true
 vars = { ALLOWED_HOST = "https://react-hono-authjs-drizzle-cloudflare-template-web-stage.pages.dev/", ENV = "stage" }
+d1_databases = [
+    { binding = "DB", database_name = "react-hono-authjs-drizzle-cloudflare-template-db-prod", database_id = "621f28a2-74dd-41ab-8494-62e69326ff72", migrations_dir = "src/db/migrations" },
+]
 
 [env.prod]
 name = "react-hono-authjs-drizzle-cloudflare-template-api-prod"
 workers_dev = true
 vars = { ALLOWED_HOST = "https://react-hono-authjs-drizzle-cloudflare-template-web-prod.pages.dev/", ENV = "prod" }
+d1_databases = [
+    { binding = "DB", database_name = "react-hono-authjs-drizzle-cloudflare-template-db-prod", database_id = "621f28a2-74dd-41ab-8494-62e69326ff72", migrations_dir = "src/db/migrations" },
+]
+
+[observability]
+enabled = true
+head_sampling_rate = 1
 
 # [vars]
 # MY_VAR = "my-variable"
@@ -28,14 +41,6 @@ vars = { ALLOWED_HOST = "https://react-hono-authjs-drizzle-cloudflare-template-w
 # binding = "MY_BUCKET"
 # bucket_name = "my-bucket"
 
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "my-database"
-# database_id = ""
 
 # [ai]
 # binding = "AI"
-
-[observability]
-enabled = true
-head_sampling_rate = 1

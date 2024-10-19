@@ -3,14 +3,19 @@
     "private": true,
     "version": "0.0.0",
     "scripts": {
-        "dev": "pnpm wrangler dev --live-reload --env dev",
+        "dev": "pnpm wrangler dev --env dev --remote",
         "typecheck": "tsc --noEmit",
         "deploy": "wrangler deploy --minify",
         "deploy:stage": "pnpm wrangler deploy --minify --env stage --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
-        "deploy:prod": "pnpm wrangler deploy --minify --env prod --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA"
+        "deploy:prod": "pnpm wrangler deploy --minify --env prod --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
+        "db:generate": "dotenvx run -f .dev.vars -- drizzle-kit generate",
+        "db:migrate": "dotenvx run -f .dev.vars -- drizzle-kit migrate",
+        "db:studio": "dotenvx run -f .dev.vars -- drizzle-kit studio",
+        "db:up": "dotenvx run -f .dev.vars -- drizzle-kit up"
     },
     "dependencies": {
         "@hono/zod-openapi": "^0.16.4",
+        "drizzle-orm": "^0.35.2",
         "hono": "^4.6.4",
         "hono-pino": "^0.3.0",
         "pino": "^9.5.0",
@@ -18,7 +23,9 @@
     },
     "devDependencies": {
         "@cloudflare/workers-types": "^4.20240925.0",
-        "wrangler": "^3.79.0",
-        "pino-pretty": "^11.3.0"
+        "@dotenvx/dotenvx": "^1.20.0",
+        "drizzle-kit": "^0.26.2",
+        "pino-pretty": "^11.3.0",
+        "wrangler": "^3.79.0"
     }
 }
