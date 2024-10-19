@@ -10,12 +10,12 @@ vars = { ALLOWED_HOST = "*", ENV = "dev" }
 [env.stage]
 name = "todoapp-api-stage"
 workers_dev = true
-vars = { ALLOWED_HOST = "https://todo-web-c9w.pages.dev/", ENV = "stage" }
+vars = { ALLOWED_HOST = "https://todoapp-web-stage.pages.dev/", ENV = "stage" }
 
 [env.prod]
 name = "todoapp-api-prod"
 workers_dev = true
-vars = { ALLOWED_HOST = "https://todo-web-c9w.pages.dev/", ENV = "prod" }
+vars = { ALLOWED_HOST = "https://todoapp-web-prod.pages.dev/", ENV = "prod" }
 
 # [vars]
 # MY_VAR = "my-variable"

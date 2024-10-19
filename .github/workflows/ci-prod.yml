@@ -9,17 +9,17 @@ permissions:
     contents: read
 jobs:
     lint:
-        name: ⬣ Lint
+        name: 🛑 Lint
         runs-on: ubuntu-latest
         steps:
             - name: ⬇️ Checkout repo
               uses: actions/checkout@v4
             - uses: pnpm/action-setup@v3
-              name: Install pnpm
+              name: 📥 Install pnpm
               with:
                   version: 9
                   run_install: false
-            - name: ⎔ Setup node
+            - name: 📥 Setup node
               uses: actions/setup-node@v4
               with:
                   node-version: 22.9.0
@@ -28,17 +28,17 @@ jobs:
             - name: 🔬 Lint
               run: pnpm run lint
     typecheck:
-        name: ʦ Types
+        name: 🛑 Types
         runs-on: ubuntu-latest
         steps:
             - name: ⬇️ Checkout repo
               uses: actions/checkout@v4
             - uses: pnpm/action-setup@v3
-              name: Install pnpm
+              name: 📥 Install pnpm
               with:
                   version: 9
                   run_install: false
-            - name: ⎔ Setup node
+            - name: 📥 Setup node
               uses: actions/setup-node@v4
               with:
                   node-version: 22.9.0
@@ -60,11 +60,11 @@ jobs:
             - name: ⬇️ Checkout repo
               uses: actions/checkout@v4
             - uses: pnpm/action-setup@v3
-              name: Install pnpm
+              name: 📥 Install pnpm
               with:
                   version: 9
                   run_install: false
-            - name: ⎔ Setup node
+            - name: 📥 Setup node
               uses: actions/setup-node@v4
               with:
                   node-version: 22.9.0
@@ -88,11 +88,11 @@ jobs:
             - name: ⬇️ Checkout repo
               uses: actions/checkout@v4
             - uses: pnpm/action-setup@v3
-              name: Install pnpm
+              name: 📥 Install pnpm
               with:
                   version: 9
                   run_install: false
-            - name: ⎔ Setup node
+            - name: 📥 Setup node
               uses: actions/setup-node@v4
               with:
                   node-version: 22.9.0
