@@ -18,6 +18,7 @@
     "dependencies": {
         "@hono/zod-openapi": "^0.16.4",
         "drizzle-orm": "^0.35.2",
+        "drizzle-zod": "^0.5.1",
         "hono": "^4.6.4",
         "hono-pino": "^0.3.0",
         "pino": "^9.5.0",
