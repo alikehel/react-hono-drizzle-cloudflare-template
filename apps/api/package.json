@@ -14,6 +14,9 @@
         "db:up": "dotenvx run -f .dev.vars -- drizzle-kit up"
     },
     "dependencies": {
+        "@auth/core": "^0.37.2",
+        "@auth/drizzle-adapter": "^1.7.2",
+        "@hono/auth-js": "^1.0.11",
         "@hono/zod-openapi": "^0.16.4",
         "drizzle-orm": "^0.35.2",
         "hono": "^4.6.4",
