@@ -10,8 +10,10 @@
         "deploy:prod": "pnpm wrangler deploy --minify --env prod --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
         "db:generate": "dotenvx run -f .dev.vars -- drizzle-kit generate",
         "db:migrate": "dotenvx run -f .dev.vars -- drizzle-kit migrate",
+        "db:push": "dotenvx run -f .dev.vars -- drizzle-kit push",
         "db:studio": "dotenvx run -f .dev.vars -- drizzle-kit studio",
-        "db:up": "dotenvx run -f .dev.vars -- drizzle-kit up"
+        "db:up": "dotenvx run -f .dev.vars -- drizzle-kit up",
+        "db:pull": "dotenvx run -f .dev.vars -- drizzle-kit pull"
     },
     "dependencies": {
         "@hono/zod-openapi": "^0.16.4",
