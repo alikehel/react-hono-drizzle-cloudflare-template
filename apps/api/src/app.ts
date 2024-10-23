@@ -40,6 +40,7 @@ app.get("/", async (c) => {
     const db = drizzle(c.env.DB, {
         schema: schema,
         logger: true,
+        casing: "snake_case",
     });
     const randomUser = `User ${Math.floor(Math.random() * 1000)}`;
     await db.insert(usersTable).values({
