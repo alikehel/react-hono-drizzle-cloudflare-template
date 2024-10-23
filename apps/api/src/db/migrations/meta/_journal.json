@@ -15,6 +15,13 @@
             "when": 1729516609980,
             "tag": "0001_wandering_molecule_man",
             "breakpoints": true
+        },
+        {
+            "idx": 2,
+            "version": "6",
+            "when": 1729692122410,
+            "tag": "0002_bitter_power_man",
+            "breakpoints": true
         }
     ]
 }

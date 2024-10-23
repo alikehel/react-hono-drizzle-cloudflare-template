@@ -46,6 +46,7 @@ app.get("/", async (c) => {
         name: randomUser,
         email: `${randomUser.replace(/\s/g, "")}@example.com`,
         password: "password",
+        firstName: randomUser.split(" ")[0],
     });
     const users = await db.query.usersTable.findMany();
     c.var.logger.info("Users", users);

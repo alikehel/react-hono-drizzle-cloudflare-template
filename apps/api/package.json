@@ -8,12 +8,13 @@
         "deploy": "wrangler deploy --minify",
         "deploy:stage": "pnpm wrangler deploy --minify --env stage --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
         "deploy:prod": "pnpm wrangler deploy --minify --env prod --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
-        "db:generate": "dotenvx run -f .dev.vars -- drizzle-kit generate",
-        "db:migrate": "dotenvx run -f .dev.vars -- drizzle-kit migrate",
-        "db:push": "dotenvx run -f .dev.vars -- drizzle-kit push",
-        "db:studio": "dotenvx run -f .dev.vars -- drizzle-kit studio",
-        "db:up": "dotenvx run -f .dev.vars -- drizzle-kit up",
-        "db:pull": "dotenvx run -f .dev.vars -- drizzle-kit pull"
+        "db:generate": "pnpm run dotenvx -- drizzle-kit generate",
+        "db:migrate": "pnpm run dotenvx -- drizzle-kit migrate",
+        "db:push": "pnpm run dotenvx -- drizzle-kit push",
+        "db:studio": "pnpm run dotenvx -- drizzle-kit studio",
+        "db:up": "pnpm run dotenvx -- drizzle-kit up",
+        "db:pull": "pnpm run dotenvx -- drizzle-kit pull",
+        "dotenvx": "dotenvx run -f .dev.vars"
     },
     "dependencies": {
         "@hono/zod-openapi": "^0.16.4",

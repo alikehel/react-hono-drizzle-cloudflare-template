@@ -6,6 +6,9 @@ export default defineConfig({
     schema: "./src/db/schema.ts",
     dialect: "sqlite",
     driver: "d1-http",
+    verbose: true,
+    strict: true,
+    casing: "snake_case",
     dbCredentials: {
         // biome-ignore lint/style/noNonNullAssertion: <explanation>
         accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,

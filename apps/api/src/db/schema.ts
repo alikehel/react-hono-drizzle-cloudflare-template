@@ -6,6 +6,7 @@ export const usersTable = sqliteTable("users", {
     name: text().notNull(),
     email: text().notNull().unique(),
     password: text().notNull(),
+    firstName: text().notNull(),
 });
 
 export const insertUsersSchema = createInsertSchema(usersTable);
