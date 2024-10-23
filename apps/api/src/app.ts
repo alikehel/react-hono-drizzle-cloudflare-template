@@ -4,6 +4,7 @@ import { cors } from "hono/cors";
 import { prettyJSON } from "hono/pretty-json";
 import * as schema from "./db/schema";
 import { usersTable } from "./db/schema";
+import { db } from "./middlewares/db";
 import { notFound } from "./middlewares/not-found";
 import { onError } from "./middlewares/on-error";
 import { pinoLogger } from "./middlewares/pino-logger";
@@ -36,20 +37,17 @@ app.onError(onError);
 
 app.notFound(notFound);
 
+app.use(db());
+
 app.get("/", async (c) => {
-    const db = drizzle(c.env.DB, {
-        schema: schema,
-        logger: true,
-        casing: "snake_case",
-    });
     const randomUser = `User ${Math.floor(Math.random() * 1000)}`;
-    await db.insert(usersTable).values({
+    await c.var.db.insert(usersTable).values({
         name: randomUser,
         email: `${randomUser.replace(/\s/g, "")}@example.com`,
         password: "password",
         firstName: randomUser.split(" ")[0],
     });
-    const users = await db.query.usersTable.findMany();
+    const users = await c.var.db.query.usersTable.findMany();
     c.var.logger.info("Users", users);
     return c.json(users);
 });

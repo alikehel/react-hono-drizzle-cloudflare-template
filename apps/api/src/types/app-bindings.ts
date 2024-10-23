@@ -1,3 +1,5 @@
+import type * as schema from "@/db/schema";
+import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type { PinoLogger } from "hono-pino";
 
 export interface Bindings {
@@ -12,4 +14,7 @@ export interface Bindings {
 
 export interface Variables {
     logger: PinoLogger;
+    db: DrizzleD1Database<typeof schema> & {
+        $client: D1Database;
+    };
 }
