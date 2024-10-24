@@ -54,6 +54,7 @@ pnpm run dev
 - [ ] Better logging (Request Body, Response Body, Query, Params)
 - [ ] Better security
 - [ ] API Versioning
+- [ ] Serve React App from Hono API
 
 ## Contributing
 
