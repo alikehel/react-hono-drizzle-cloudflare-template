@@ -44,7 +44,7 @@ pnpm run dev
 
 ## Contributing
 
-Hey, thanks for your interest in contributing! We appreciate your help and taking your time to contribute, but before you start, please check the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+Hey, thanks for your interest in contributing! We appreciate your help and taking your time to contribute.
 
 ### Non-substantive changes
 
