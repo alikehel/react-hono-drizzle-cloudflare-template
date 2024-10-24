@@ -3,12 +3,16 @@ import { z } from "@hono/zod-openapi";
 
 export const successResponseSchema = <T extends ZodSchema>(data: T) => {
     return z.object({
-        success: z.boolean(),
+        success: z.boolean().openapi({
+            example: true,
+        }),
         data,
     });
 };
 
 export const errorResponseSchema = z.object({
-    success: z.boolean(),
+    success: z.boolean().openapi({
+        example: false,
+    }),
     error: z.string(),
 });
