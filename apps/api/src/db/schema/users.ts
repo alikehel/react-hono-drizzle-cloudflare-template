@@ -9,6 +9,6 @@ export const usersTable = sqliteTable("users", {
     firstName: text().notNull(),
 });
 
-export const insertUsersSchema = createInsertSchema(usersTable);
+export const usersInsertSchema = createInsertSchema(usersTable);
 
-export const selectUsersSchema = createSelectSchema(usersTable);
+export const usersSelectSchema = createSelectSchema(usersTable);

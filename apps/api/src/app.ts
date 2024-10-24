@@ -1,55 +1,13 @@
-import { OpenAPIHono } from "@hono/zod-openapi";
-import { drizzle } from "drizzle-orm/d1";
-import { cors } from "hono/cors";
-import { prettyJSON } from "hono/pretty-json";
-import * as schema from "./db/schema";
-import { usersTable } from "./db/schema";
-import { db } from "./middlewares/db";
-import { notFound } from "./middlewares/not-found";
-import { onError } from "./middlewares/on-error";
-import { pinoLogger } from "./middlewares/pino-logger";
-import { serveEmojiFavicon } from "./middlewares/serve-emoji-favicon";
-import type { Bindings, Variables } from "./types/app-bindings";
+import { configureOpenAPI } from "./lib/configure-openapi";
+import { configureRoutes } from "./lib/configure-routes";
+import { createApp } from "./lib/create-app";
+import { createUser } from "./modules/users/create-user";
+import { getAllUsers } from "./modules/users/get-all-users";
 
-const app = new OpenAPIHono<{
-    Bindings: Bindings;
-    Variables: Variables;
-}>();
+const app = createApp();
 
-app.use(
-    "*",
-    cors({
-        origin: (origin) => origin,
-        allowHeaders: ["Content-Type"],
-        allowMethods: ["*"],
-        maxAge: 86400,
-        credentials: true,
-    }),
-);
+configureOpenAPI(app);
 
-app.use(serveEmojiFavicon("🚀"));
-
-app.use(prettyJSON());
-
-app.use(pinoLogger());
-
-app.onError(onError);
-
-app.notFound(notFound);
-
-app.use(db());
-
-app.get("/", async (c) => {
-    const randomUser = `User ${Math.floor(Math.random() * 1000)}`;
-    await c.var.db.insert(usersTable).values({
-        name: randomUser,
-        email: `${randomUser.replace(/\s/g, "")}@example.com`,
-        password: "password",
-        firstName: randomUser.split(" ")[0],
-    });
-    const users = await c.var.db.query.usersTable.findMany();
-    c.var.logger.info("Users", users);
-    return c.json(users);
-});
+configureRoutes(app, [getAllUsers, createUser]);
 
 export default app;
