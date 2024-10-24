@@ -39,8 +39,21 @@ pnpm run dev
 
 ## Development Roadmap
 
-[] Integrate with Cloudflare R2
-[] Add vitest for testing
+- [ ] Better Readme
+- [ ] Integrate with Cloudflare R2
+- [ ] Add vitest for testing
+- [ ] RBAC, PBAC, ABAC or CBAC? (CASL or accesscontrol)
+- [ ] A script for setting up everything
+- [ ] Better structure (modules/users/routes)
+    - [ ] Move types to lib
+    - [ ] Make common schemas file
+- [ ] Parse ENV with ZOD (dotenv, expand, dotenvx)
+- [ ] Drizzle Pagination
+- [ ] Better responses
+- [ ] Better error handling
+- [ ] Better logging (Request Body, Response Body, Query, Params)
+- [ ] Better security
+- [ ] API Versioning
 
 ## Contributing
 
