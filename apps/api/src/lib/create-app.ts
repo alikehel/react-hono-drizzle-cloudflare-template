@@ -7,12 +7,13 @@ import type { Bindings, Variables } from "@/types/app-bindings";
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { cors } from "hono/cors";
 import { prettyJSON } from "hono/pretty-json";
+import defaultHook from "./default-hook";
 
 export const createRouter = () => {
     return new OpenAPIHono<{
         Bindings: Bindings;
         Variables: Variables;
-    }>();
+    }>({ defaultHook: defaultHook });
 };
 
 // export const createRoute = (data: {
