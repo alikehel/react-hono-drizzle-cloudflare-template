@@ -1,26 +1,46 @@
-# TODO APP
-
-## Features
-
-## Links
+# React Hono AuthJS Drizzle Cloudflare Template
 
 ## Technology Stack
 
 -   [React](https://reactjs.org/)
--   [Expo](https://expo.io/)
 -   [HonoJS](https://hono.io/)
--   [Auth0](https://auth0.com/)
+-   [AuthJS](https://authjs.dev/)
 -   [DrizzleORM](https://orm.drizzle.team/)
 -   [Cloudflare](https://www.cloudflare.com/)
--   [PWA](https://web.dev/progressive-web-apps/)
 
 ## Getting Started
 
 ### Prerequisites
 
+- Cloudflare Account
+- Cloudflare D1 database
+- Cloudflare keys in your repo secrets (Account ID, API Token, DB ID)
+- `.dev.vars` file in the root of your project
+
 ### Installation Steps
 
+1. Clone the repository
+
+```bash
+git clone https://github.com/alikehel/react-hono-authjs-drizzle-cloudflare-template
+```
+
+2. Install dependencies
+
+```bash
+corepack enable && pnpm install
+```
+
+3. Start the development server
+
+```bash
+pnpm run dev
+```
+
 ## Development Roadmap
+
+[] Integrate with Cloudflare R2
+[] Add vitest for testing
 
 ## Contributing
 
