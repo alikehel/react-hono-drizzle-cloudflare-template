@@ -2,20 +2,29 @@ import { hc } from "hono/client";
 import { configureOpenAPI } from "./lib/configure-openapi";
 import { configureRoutes } from "./lib/configure-routes";
 import { createApp } from "./lib/create-app";
-import { createUser } from "./modules/users/create-user";
-import { getAllUsers } from "./modules/users/get-all-users";
+import { usersRoutes } from "./modules/users";
 
-const routes = [getAllUsers, createUser] as const;
+// Create App
 
 const app = createApp();
 
+// Configure OpenAPI
+
 configureOpenAPI(app);
 
+// Configure Routes
+
+const routes = [...usersRoutes] as const;
+
 configureRoutes(app, [...routes]);
+
+// Export App Type for Client
 
 export type AppType = (typeof routes)[number];
 
 // TODO: Remove later
 const client = hc<AppType>("http://localhost:8787/");
+
+// Export App
 
 export default app;

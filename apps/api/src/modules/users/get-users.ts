@@ -8,11 +8,13 @@ import {
 } from "@/lib/response-schemas";
 import { createRoute, z } from "@hono/zod-openapi";
 
-export const getAllUsers = createRouter().openapi(
+export const getUsers = createRouter().openapi(
     createRoute({
         tags: ["Users"],
         method: "get",
         path: "/users",
+        summary: "Get all users",
+        description: "Get all users",
         responses: {
             [OK]: jsonContent(
                 successResponseSchema(z.array(usersSelectSchema)),
@@ -23,13 +25,16 @@ export const getAllUsers = createRouter().openapi(
     }),
     async (c) => {
         const users = await c.var.db.query.usersTable.findMany();
+
         c.var.logger.info("Users", users);
+
         if (users.length === 0) {
             return c.json(
                 { success: false, error: "No users found" },
                 NOT_FOUND,
             );
         }
+
         return c.json({ success: true, data: users }, OK);
     },
 );

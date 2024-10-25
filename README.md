@@ -39,6 +39,7 @@ pnpm run dev
 
 ## Development Roadmap
 
+- [ ] Response Example -> `{success: true, data: {users: []}}`
 - [ ] Better Readme
 - [ ] Integrate with Cloudflare R2
 - [ ] Add vitest for testing
