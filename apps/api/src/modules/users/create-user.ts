@@ -16,7 +16,7 @@ export const createUser = createRouter().openapi(
     createRoute({
         tags: ["Users"],
         method: "post",
-        path: "/users",
+        path: "/api/v1/users",
         summary: "Create user",
         description: "Create a new user",
         request: {

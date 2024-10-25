@@ -12,7 +12,7 @@ export const getUsers = createRouter().openapi(
     createRoute({
         tags: ["Users"],
         method: "get",
-        path: "/users",
+        path: "/api/v1/users",
         summary: "Get all users",
         description: "Get all users",
         responses: {

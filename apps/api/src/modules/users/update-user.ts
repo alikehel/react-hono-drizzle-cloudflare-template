@@ -13,7 +13,7 @@ export const updateUser = createRouter().openapi(
     createRoute({
         tags: ["Users"],
         method: "patch",
-        path: "/users/{userId}",
+        path: "/api/v1/users/{userId}",
         summary: "Update user",
         description: "Update user by id",
         request: {

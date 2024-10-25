@@ -13,7 +13,7 @@ export const deleteUser = createRouter().openapi(
     createRoute({
         tags: ["Users"],
         method: "delete",
-        path: "/users/{userId}",
+        path: "/api/v1/users/{userId}",
         summary: "Delete user",
         description: "Delete user by id",
         request: {
