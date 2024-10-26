@@ -69,6 +69,8 @@ pnpm run dev
 - [ ] Better security
 - [ ] API Versioning
 - [ ] Serve React App from Hono API
+- [ ] ESLint (https://github.com/antfu/eslint-config)
+- [ ] Drizzle Migrations & Seeding (https://www.youtube.com/watch?v=vLze97zZKsU)
 
 ## Contributing
 
