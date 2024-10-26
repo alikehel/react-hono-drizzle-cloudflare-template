@@ -28,21 +28,22 @@ export const jsonContentRequired = <T extends ZodSchema>(
     };
 };
 
-export const jsonContentOneOf = <T extends ZodSchema>(
-    schemas: T[],
-    description: string,
-) => {
-    return {
-        content: {
-            "application/json": {
-                schema: {
-                    oneOf: oneOf(schemas),
-                },
-            },
-        },
-        description,
-    };
-};
+// TODO: Fix TS Error
+// export const jsonContentOneOf = <T extends ZodSchema>(
+//     schemas: T[],
+//     description: string,
+// ) => {
+//     return {
+//         content: {
+//             "application/json": {
+//                 schema: {
+//                     oneOf: oneOf(schemas),
+//                 },
+//             },
+//         },
+//         description,
+//     };
+// };
 
 const oneOf = <T extends ZodSchema>(schemas: T[]) => {
     const registry = new OpenAPIRegistry();

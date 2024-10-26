@@ -2,6 +2,23 @@ import { useState } from "react";
 import viteLogo from "/vite.svg";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
+import { hcWithType } from "@react-hono-authjs-drizzle-cloudflare-template/api/hc";
+
+const client = hcWithType("http://localhost:8787");
+
+const users = await client.api.v1.users.$post({
+    json: {
+        email: "534",
+        password: "123",
+        name: "123",
+        firstName: "123",
+    },
+});
+
+if (users.ok) {
+    const usersData = await users.json();
+    console.log(usersData);
+}
 
 function App() {
     const [count, setCount] = useState(0);
