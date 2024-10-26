@@ -1,5 +1,5 @@
 import { usersInsertSchema, usersSelectSchema, usersTable } from "@/db/schema";
-import { createRouter } from "@/lib/create-app";
+import { createRoute } from "@/lib/create-app";
 import {
     CREATED,
     UNAUTHORIZED,
@@ -10,10 +10,9 @@ import {
     errorResponseSchema,
     successResponseSchema,
 } from "@/lib/response-schemas";
-import { createRoute } from "@hono/zod-openapi";
 
-export const createUser = createRouter().openapi(
-    createRoute({
+export const createUser = createRoute({
+    route: {
         tags: ["Users"],
         method: "post",
         path: "/api/v1/users",
@@ -33,8 +32,9 @@ export const createUser = createRouter().openapi(
                 "Validation error",
             ),
         },
-    }),
-    async (c) => {
+    },
+    middlewares: [],
+    handler: async (c) => {
         const { name, email, password, firstName } = c.req.valid("json");
 
         // random number to simulate a user being logged in
@@ -59,4 +59,4 @@ export const createUser = createRouter().openapi(
 
         return c.json({ success: true, data: user }, CREATED);
     },
-);
+});

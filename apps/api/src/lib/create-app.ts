@@ -4,7 +4,10 @@ import { onError } from "@/middlewares/on-error";
 import { pinoLogger } from "@/middlewares/pino-logger";
 import { serveEmojiFavicon } from "@/middlewares/serve-emoji-favicon";
 import type { Bindings, Variables } from "@/types/app-bindings";
-import { OpenAPIHono } from "@hono/zod-openapi";
+import type { AppRouteHandler } from "@/types/app-type";
+import { OpenAPIHono, type RouteConfig } from "@hono/zod-openapi";
+import { createRoute as createHonoRoute } from "@hono/zod-openapi";
+import type { MiddlewareHandler } from "hono";
 import { cors } from "hono/cors";
 import { prettyJSON } from "hono/pretty-json";
 import defaultHook from "./default-hook";
@@ -16,16 +19,19 @@ export const createRouter = () => {
     }>({ defaultHook: defaultHook });
 };
 
-// export const createRoute = (data: {
-//     route: RouteConfig;
-//     handler: RouteHandler<
-//         RouteConfig,
-//         { Bindings: Bindings; Variables: Variables },
-//         Input,
-//     >;
-// }) => {
-//     return createRouter().openapi(createHonoRoute(data.route), data.handler);
-// };
+export const createRoute = <T extends RouteConfig>(data: {
+    route: T;
+    // middlewares?: AppRouteHandler<T>[];
+    middlewares: MiddlewareHandler[];
+    handler: AppRouteHandler<T>;
+}) => {
+    return createRouter().openapi(
+        createHonoRoute({ ...data.route, middleware: data.middlewares }),
+        data.handler as unknown as AppRouteHandler<
+            ReturnType<typeof createHonoRoute>
+        >,
+    );
+};
 
 export const createApp = () => {
     const app = createRouter();
