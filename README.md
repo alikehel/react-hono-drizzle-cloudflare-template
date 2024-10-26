@@ -16,6 +16,11 @@
 - URL Query parameters should be in lowercase and use underscores as separators.
 Example: `https://example.com/user-profile/orders/:orderId/details?sort_by=date&show_archived=true`
 
+## Issues
+
+- createRoute function has issues with the hono client
+- In order for the hono client to work, routes must be in a specific form
+
 ## Getting Started
 
 ### Prerequisites
