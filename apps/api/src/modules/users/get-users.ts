@@ -1,17 +1,17 @@
 import { usersSelectSchema } from "@/db/schema";
 import { usersParamsSchema } from "@/db/schema/users";
-import { createRouter } from "@/lib/create-app";
+import { createRoute } from "@/lib/create-app";
 import { NOT_FOUND, OK } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
 import {
     errorResponseSchema,
     successResponseSchema,
 } from "@/lib/response-schemas";
-import { createRoute, z } from "@hono/zod-openapi";
+import { z } from "@hono/zod-openapi";
 import { objectToCamel } from "ts-case-convert";
 
-export const getUsers = createRouter().openapi(
-    createRoute({
+export const getUsers = createRoute({
+    route: {
         tags: ["Users"],
         method: "get",
         path: "/api/v1/users",
@@ -37,8 +37,8 @@ export const getUsers = createRouter().openapi(
             ),
             [NOT_FOUND]: jsonContent(errorResponseSchema, "No users found"),
         },
-    }),
-    async (c) => {
+    },
+    handler: async (c) => {
         const filters = c.req.valid("query");
 
         const users = await c.var.db.query.usersTable.findMany({
@@ -57,4 +57,4 @@ export const getUsers = createRouter().openapi(
 
         return c.json({ success: true, data: users }, OK);
     },
-);
+});

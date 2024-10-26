@@ -21,8 +21,7 @@ export const createRouter = () => {
 
 export const createRoute = <T extends RouteConfig>(data: {
     route: T;
-    // middlewares?: AppRouteHandler<T>[];
-    middlewares: MiddlewareHandler[];
+    middlewares?: MiddlewareHandler[];
     handler: AppRouteHandler<T>;
 }) => {
     return createRouter().openapi(

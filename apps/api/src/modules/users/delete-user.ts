@@ -1,16 +1,16 @@
 import { usersSelectSchema, usersTable } from "@/db/schema";
-import { createRouter } from "@/lib/create-app";
+import { createRoute } from "@/lib/create-app";
 import { NOT_FOUND, OK } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
 import {
     errorResponseSchema,
     successResponseSchema,
 } from "@/lib/response-schemas";
-import { createRoute, z } from "@hono/zod-openapi";
+import { z } from "@hono/zod-openapi";
 import { eq } from "drizzle-orm";
 
-export const deleteUser = createRouter().openapi(
-    createRoute({
+export const deleteUser = createRoute({
+    route: {
         tags: ["Users"],
         method: "delete",
         path: "/api/v1/users/{userId}",
@@ -28,8 +28,8 @@ export const deleteUser = createRouter().openapi(
             ),
             [NOT_FOUND]: jsonContent(errorResponseSchema, "User not found"),
         },
-    }),
-    async (c) => {
+    },
+    handler: async (c) => {
         const { userId } = c.req.valid("param");
 
         const [user] = await c.var.db
@@ -48,4 +48,4 @@ export const deleteUser = createRouter().openapi(
 
         return c.json({ success: true, data: user }, OK);
     },
-);
+});

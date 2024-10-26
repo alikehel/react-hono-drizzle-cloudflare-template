@@ -1,16 +1,16 @@
 import { usersInsertSchema, usersSelectSchema, usersTable } from "@/db/schema";
-import { createRouter } from "@/lib/create-app";
+import { createRoute } from "@/lib/create-app";
 import { NOT_FOUND, OK, UNPROCESSABLE_ENTITY } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
 import {
     errorResponseSchema,
     successResponseSchema,
 } from "@/lib/response-schemas";
-import { createRoute, z } from "@hono/zod-openapi";
+import { z } from "@hono/zod-openapi";
 import { eq } from "drizzle-orm";
 
-export const updateUser = createRouter().openapi(
-    createRoute({
+export const updateUser = createRoute({
+    route: {
         tags: ["Users"],
         method: "patch",
         path: "/api/v1/users/{userId}",
@@ -33,8 +33,8 @@ export const updateUser = createRouter().openapi(
             ),
             [NOT_FOUND]: jsonContent(errorResponseSchema, "User not found"),
         },
-    }),
-    async (c) => {
+    },
+    handler: async (c) => {
         const { userId } = c.req.valid("param");
         const { name, email, password, firstName } = c.req.valid("json");
 
@@ -60,4 +60,4 @@ export const updateUser = createRouter().openapi(
 
         return c.json({ success: true, data: user }, OK);
     },
-);
+});

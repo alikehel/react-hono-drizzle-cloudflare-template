@@ -33,7 +33,6 @@ export const createUser = createRoute({
             ),
         },
     },
-    middlewares: [],
     handler: async (c) => {
         const { name, email, password, firstName } = c.req.valid("json");
 
