@@ -1,7 +1,9 @@
 import { usersInsertSchema, usersSelectSchema, usersTable } from "@/db/schema";
+import { usersParamsSchema } from "@/db/schema/users";
 import { createRoute } from "@/lib/create-app";
 import { NOT_FOUND, OK, UNPROCESSABLE_ENTITY } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
+import { requestParamsSchema } from "@/lib/request-schemas";
 import {
     errorResponseSchema,
     successResponseSchema,
@@ -13,13 +15,15 @@ export const updateUser = createRoute({
     route: {
         tags: ["Users"],
         method: "patch",
-        path: "/api/v1/users/{userId}",
+        path: "/api/v1/users/{user_id}",
         summary: "Update user",
         description: "Update user by id",
         request: {
-            params: z.object({
-                userId: z.coerce.number(),
-            }),
+            params: requestParamsSchema(
+                z.object({
+                    user_id: usersParamsSchema.shape.id,
+                }),
+            ),
             body: jsonContent(usersInsertSchema, "User data"),
         },
         responses: {
@@ -35,18 +39,18 @@ export const updateUser = createRoute({
         },
     },
     handler: async (c) => {
-        const { userId } = c.req.valid("param");
-        const { name, email, password, firstName } = c.req.valid("json");
+        const pathParams = c.req.valid("param");
+        const data = c.req.valid("json");
 
         const [user] = await c.var.db
             .update(usersTable)
             .set({
-                name: name,
-                email: email,
-                password: password,
-                firstName: firstName,
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                firstName: data.firstName,
             })
-            .where(eq(usersTable.id, userId))
+            .where(eq(usersTable.id, pathParams.userId))
             .returning();
 
         if (!user) {

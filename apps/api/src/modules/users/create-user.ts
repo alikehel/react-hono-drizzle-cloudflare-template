@@ -34,7 +34,7 @@ export const createUser = createRoute({
         },
     },
     handler: async (c) => {
-        const { name, email, password, firstName } = c.req.valid("json");
+        const data = c.req.valid("json");
 
         // random number to simulate a user being logged in
         if (Math.random() > 0.5) {
@@ -47,10 +47,10 @@ export const createUser = createRoute({
         const [user] = await c.var.db
             .insert(usersTable)
             .values({
-                name: name,
-                email: email,
-                password: password,
-                firstName: firstName,
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                firstName: data.firstName,
             })
             .returning();
 

@@ -3,6 +3,7 @@ import { usersParamsSchema } from "@/db/schema/users";
 import { createRoute } from "@/lib/create-app";
 import { NOT_FOUND, OK } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
+import { requestParamsSchema } from "@/lib/request-schemas";
 import {
     errorResponseSchema,
     successResponseSchema,
@@ -13,13 +14,15 @@ export const getUser = createRoute({
     route: {
         tags: ["Users"],
         method: "get",
-        path: "/api/v1/users/{userId}",
+        path: "/api/v1/users/{user_id}",
         summary: "Get user",
         description: "Get user by id",
         request: {
-            params: z.object({
-                userId: usersParamsSchema.shape.id,
-            }),
+            params: requestParamsSchema(
+                z.object({
+                    user_id: usersParamsSchema.shape.id,
+                }),
+            ),
         },
         responses: {
             [OK]: jsonContent(
@@ -30,10 +33,10 @@ export const getUser = createRoute({
         },
     },
     handler: async (c) => {
-        const { userId } = c.req.valid("param");
+        const pathParams = c.req.valid("param");
 
         const user = await c.var.db.query.usersTable.findFirst({
-            where: (usersTable, { eq }) => eq(usersTable.id, userId),
+            where: (usersTable, { eq }) => eq(usersTable.id, pathParams.userId),
         });
 
         c.var.logger.info("User", user);

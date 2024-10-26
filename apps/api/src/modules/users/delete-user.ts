@@ -1,7 +1,9 @@
 import { usersSelectSchema, usersTable } from "@/db/schema";
+import { usersParamsSchema } from "@/db/schema/users";
 import { createRoute } from "@/lib/create-app";
 import { NOT_FOUND, OK } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
+import { requestParamsSchema } from "@/lib/request-schemas";
 import {
     errorResponseSchema,
     successResponseSchema,
@@ -13,13 +15,15 @@ export const deleteUser = createRoute({
     route: {
         tags: ["Users"],
         method: "delete",
-        path: "/api/v1/users/{userId}",
+        path: "/api/v1/users/{user_id}",
         summary: "Delete user",
         description: "Delete user by id",
         request: {
-            params: z.object({
-                userId: z.coerce.number(),
-            }),
+            params: requestParamsSchema(
+                z.object({
+                    user_id: usersParamsSchema.shape.id,
+                }),
+            ),
         },
         responses: {
             [OK]: jsonContent(
@@ -30,11 +34,11 @@ export const deleteUser = createRoute({
         },
     },
     handler: async (c) => {
-        const { userId } = c.req.valid("param");
+        const pathParams = c.req.valid("param");
 
         const [user] = await c.var.db
             .delete(usersTable)
-            .where(eq(usersTable.id, userId))
+            .where(eq(usersTable.id, pathParams.userId))
             .returning();
 
         c.var.logger.info("User", user);
