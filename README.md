@@ -8,6 +8,14 @@
 -   [DrizzleORM](https://orm.drizzle.team/)
 -   [Cloudflare](https://www.cloudflare.com/)
 
+## Rules
+
+- Files and folders should be named in lowercase and use hyphens as separators.
+- URL paths should be in lowercase and use hyphens as separators.
+- URL dynamic paths should be in camelCase.
+- URL Query parameters should be in lowercase and use underscores as separators.
+Example: `https://example.com/user-profile/orders/:orderId/details?sort_by=date&show_archived=true`
+
 ## Getting Started
 
 ### Prerequisites
