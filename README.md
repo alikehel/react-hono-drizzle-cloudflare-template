@@ -52,25 +52,29 @@ pnpm run dev
 
 ## Development Roadmap
 
-- [ ] Response Example -> `{success: true, data: {users: []}}`
+### Important
+
+- [x] API Versioning
+- [ ] Better responses for data and errors (error handeling) (Response Example -> `{success: true, data: {users: []}}`)
+- [ ] Drizzle Pagination
+- [ ] Drizzle Migrations & Seeding (https://www.youtube.com/watch?v=vLze97zZKsU)
+- [ ] Move to Turso because D1 has 10 GB limit (Maybe also move to neon for postgres)
+
+### Less Important
+
 - [ ] Better Readme
-- [ ] Integrate with Cloudflare R2
 - [ ] Add vitest for testing
-- [ ] RBAC, PBAC, ABAC or CBAC? (CASL or accesscontrol)
 - [ ] A script for setting up everything
 - [ ] Better structure (modules/users/routes)
     - [ ] Move types to lib
     - [ ] Make common schemas file
-- [ ] Parse ENV with ZOD (dotenv, expand, dotenvx)
-- [ ] Drizzle Pagination
-- [ ] Better responses
-- [ ] Better error handling
-- [ ] Better logging (Request Body, Response Body, Query, Params)
 - [ ] Better security
-- [ ] API Versioning
-- [ ] Serve React App from Hono API
+- [ ] Integrate with Cloudflare R2
+- [ ] RBAC, PBAC, ABAC or CBAC? (CASL or accesscontrol)
 - [ ] ESLint (https://github.com/antfu/eslint-config)
-- [ ] Drizzle Migrations & Seeding (https://www.youtube.com/watch?v=vLze97zZKsU)
+- [ ] Serve React App from Hono API
+- [ ] Better logging (Request Body, Response Body, Query, Params)
+- [ ] Parse ENV with ZOD (dotenv, expand, dotenvx)
 
 ## Contributing
 
