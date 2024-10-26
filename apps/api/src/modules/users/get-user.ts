@@ -1,4 +1,5 @@
 import { usersSelectSchema } from "@/db/schema";
+import { usersParamsSchema } from "@/db/schema/users";
 import { createRouter } from "@/lib/create-app";
 import { NOT_FOUND, OK } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
@@ -17,7 +18,7 @@ export const getUser = createRouter().openapi(
         description: "Get user by id",
         request: {
             params: z.object({
-                userId: z.coerce.number(),
+                userId: usersParamsSchema.shape.id,
             }),
         },
         responses: {

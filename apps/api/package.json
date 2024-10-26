@@ -26,6 +26,7 @@
         "hono": "^4.6.4",
         "hono-pino": "^0.3.0",
         "pino": "^9.5.0",
+        "ts-case-convert": "^2.1.0",
         "zod": "^3.23.8",
         "zod-validation-error": "^3.4.0"
     },

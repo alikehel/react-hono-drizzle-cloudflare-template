@@ -1,4 +1,5 @@
 import { usersSelectSchema } from "@/db/schema";
+import { usersParamsSchema } from "@/db/schema/users";
 import { createRouter } from "@/lib/create-app";
 import { NOT_FOUND, OK } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
@@ -7,6 +8,7 @@ import {
     successResponseSchema,
 } from "@/lib/response-schemas";
 import { createRoute, z } from "@hono/zod-openapi";
+import { objectToCamel } from "ts-case-convert";
 
 export const getUsers = createRouter().openapi(
     createRoute({
@@ -15,6 +17,19 @@ export const getUsers = createRouter().openapi(
         path: "/api/v1/users",
         summary: "Get all users",
         description: "Get all users",
+        request: {
+            query: z
+                .object({
+                    user_id: usersParamsSchema.shape.id.optional(),
+                    first_name: usersParamsSchema.shape.firstName.optional(),
+                    name: usersParamsSchema.shape.name.optional(),
+                    email: usersParamsSchema.shape.email.optional(),
+                    password: usersParamsSchema.shape.password.optional(),
+                })
+                .transform((data) => {
+                    return objectToCamel(data);
+                }),
+        },
         responses: {
             [OK]: jsonContent(
                 successResponseSchema(z.array(usersSelectSchema)),
@@ -24,7 +39,12 @@ export const getUsers = createRouter().openapi(
         },
     }),
     async (c) => {
-        const users = await c.var.db.query.usersTable.findMany();
+        const filters = c.req.valid("query");
+
+        const users = await c.var.db.query.usersTable.findMany({
+            where: (usersTable, { eq }) =>
+                filters.userId ? eq(usersTable.id, filters.userId) : undefined,
+        });
 
         c.var.logger.info("Users", users);
 

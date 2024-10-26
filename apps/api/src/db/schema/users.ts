@@ -1,3 +1,4 @@
+import { z } from "@hono/zod-openapi";
 import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
@@ -9,6 +10,12 @@ export const usersTable = sqliteTable("users", {
     firstName: text().notNull(),
 });
 
-export const usersInsertSchema = createInsertSchema(usersTable);
+export const usersInsertSchema = createInsertSchema(usersTable).omit({
+    id: true,
+});
 
 export const usersSelectSchema = createSelectSchema(usersTable);
+
+export const usersParamsSchema = createSelectSchema(usersTable, {
+    id: z.coerce.number(),
+});
