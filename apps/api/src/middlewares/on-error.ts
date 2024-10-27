@@ -22,7 +22,7 @@ export const onError: ErrorHandler<{
     return c.json(
         {
             success: false,
-            error: err.message,
+            message: err.message,
             // stack: env === "prod" ? undefined : err.stack,
         } satisfies errorResponseType,
         statusCode,

@@ -11,7 +11,7 @@ export const notFound: NotFoundHandler<{
     return c.json(
         {
             success: false,
-            error: `Route not found: ${c.req.path}`,
+            message: `Route not found: ${c.req.path}`,
         } satisfies errorResponseType,
         NOT_FOUND,
     );

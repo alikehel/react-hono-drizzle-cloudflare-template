@@ -55,7 +55,7 @@ export const updateUser = createRoute({
 
         if (!user) {
             return c.json(
-                { success: false, error: "User not found" },
+                { success: false, message: "User not found" },
                 NOT_FOUND,
             );
         }

@@ -39,7 +39,7 @@ export const createUser = createRoute({
         // random number to simulate a user being logged in
         if (Math.random() > 0.5) {
             return c.json(
-                { success: false, error: "Unauthorized" },
+                { success: false, message: "Unauthorized" },
                 UNAUTHORIZED,
             );
         }

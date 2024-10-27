@@ -50,7 +50,7 @@ export const getUsers = createRoute({
 
         if (users.length === 0) {
             return c.json(
-                { success: false, error: "No users found" },
+                { success: false, message: "No users found" },
                 NOT_FOUND,
             );
         }
