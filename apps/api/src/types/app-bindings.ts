@@ -17,4 +17,9 @@ export interface Variables {
     db: DrizzleD1Database<typeof schema> & {
         $client: D1Database;
     };
+    user: {
+        id: number;
+        email: string;
+        username: string;
+    };
 }

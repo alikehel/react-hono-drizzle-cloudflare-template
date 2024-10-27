@@ -37,6 +37,8 @@ export const getUsers = createRoute({
         },
     },
     handler: async (c) => {
+        console.log("Logged in user", c.get("user"));
+
         const queryParams = c.req.valid("query");
 
         const users = await c.var.db.query.usersTable.findMany({

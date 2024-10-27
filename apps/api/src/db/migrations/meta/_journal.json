@@ -22,6 +22,13 @@
             "when": 1729692122410,
             "tag": "0002_bitter_power_man",
             "breakpoints": true
+        },
+        {
+            "idx": 3,
+            "version": "6",
+            "when": 1730008444813,
+            "tag": "0003_worthless_scrambler",
+            "breakpoints": true
         }
     ]
 }
