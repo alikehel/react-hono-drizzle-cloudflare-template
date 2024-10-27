@@ -45,10 +45,10 @@ export const updateUser = createRoute({
         const [user] = await c.var.db
             .update(usersTable)
             .set({
-                name: data.name,
-                email: data.email,
+                username: data.username,
                 password: data.password,
                 firstName: data.firstName,
+                lastName: data.lastName,
             })
             .where(eq(usersTable.id, pathParams.userId))
             .returning();
@@ -59,8 +59,6 @@ export const updateUser = createRoute({
                 NOT_FOUND,
             );
         }
-
-        c.var.logger.info("User", user);
 
         return c.json({ success: true, data: user }, OK);
     },

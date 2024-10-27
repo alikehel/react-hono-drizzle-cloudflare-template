@@ -41,8 +41,6 @@ export const deleteUser = createRoute({
             .where(eq(usersTable.id, pathParams.userId))
             .returning();
 
-        c.var.logger.info("User", user);
-
         if (!user) {
             return c.json(
                 { success: false, message: "User not found" },

@@ -39,8 +39,6 @@ export const getUser = createRoute({
             where: (usersTable, { eq }) => eq(usersTable.id, pathParams.userId),
         });
 
-        c.var.logger.info("User", user);
-
         if (!user) {
             return c.json(
                 { success: false, message: "User not found" },
