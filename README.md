@@ -56,7 +56,7 @@ pnpm run dev
 
 - [x] API Versioning
 - [ ] Better responses for data and errors (error handeling) (Response Example -> `{success: true, data: {users: []}}`)
-- [ ] Drizzle Pagination
+- [ ] Drizzle Pagination (https://orm.drizzle.team/docs/guides/limit-offset-pagination, https://planetscale.com/blog/mysql-pagination#cursor-based-pagination-performance, https://x.com/KaraBharat/status/1848378675953377616)
 - [ ] Drizzle Migrations & Seeding (https://www.youtube.com/watch?v=vLze97zZKsU)
 - [ ] Move to Turso because D1 has 10 GB limit (Maybe also move to neon for postgres)
 
