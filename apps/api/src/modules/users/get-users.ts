@@ -22,9 +22,7 @@ export const getUsers = createRoute({
                 z.object({
                     user_id: usersParamsSchema.shape.id.optional(),
                     first_name: usersParamsSchema.shape.firstName.optional(),
-                    name: usersParamsSchema.shape.name.optional(),
-                    email: usersParamsSchema.shape.email.optional(),
-                    password: usersParamsSchema.shape.password.optional(),
+                    last_name: usersParamsSchema.shape.lastName.optional(),
                 }),
             ),
         },
@@ -37,8 +35,6 @@ export const getUsers = createRoute({
         },
     },
     handler: async (c) => {
-        console.log("Logged in user", c.get("user"));
-
         const queryParams = c.req.valid("query");
 
         const users = await c.var.db.query.usersTable.findMany({
@@ -47,8 +43,6 @@ export const getUsers = createRoute({
                     ? eq(usersTable.id, queryParams.userId)
                     : undefined,
         });
-
-        c.var.logger.info("Users", users);
 
         if (users.length === 0) {
             return c.json(

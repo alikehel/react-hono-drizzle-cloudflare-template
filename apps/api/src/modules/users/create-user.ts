@@ -47,14 +47,12 @@ export const createUser = createRoute({
         const [user] = await c.var.db
             .insert(usersTable)
             .values({
-                name: data.name,
-                email: data.email,
+                username: data.username,
                 password: data.password,
                 firstName: data.firstName,
+                lastName: data.lastName,
             })
             .returning();
-
-        c.var.logger.info("User", user);
 
         return c.json({ success: true, data: user }, CREATED);
     },

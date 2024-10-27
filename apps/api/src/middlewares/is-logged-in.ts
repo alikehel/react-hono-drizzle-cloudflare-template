@@ -1,13 +1,34 @@
 import { UNAUTHORIZED } from "@/lib/http-status-codes";
+import { deleteSessionTokenCookie } from "@/modules/auth/lib/delete-session-token-cookie";
 import { validateSessionToken } from "@/modules/auth/lib/validate-session-token";
+import type { Bindings, Variables } from "@/types/app-bindings";
 import type { MiddlewareHandler } from "hono";
 import { getCookie } from "hono/cookie";
 
-export const isLoggedIn = (): MiddlewareHandler => {
+export const isLoggedIn = (): MiddlewareHandler<{
+    Bindings: Bindings;
+    Variables: Variables;
+}> => {
     return async (c, next) => {
-        const session = getCookie(c, "session");
+        // csrf protection
+        if (c.req.method !== "GET") {
+            const origin = c.req.header("Origin");
+            // You can also compare it against the Host or X-Forwarded-Host header.
+            if (
+                origin === null ||
+                origin === undefined ||
+                origin !== new URL(c.req.url).origin
+            ) {
+                return c.json(
+                    { success: false, message: "Invalid origin" },
+                    UNAUTHORIZED,
+                );
+            }
+        }
 
-        if (!session) {
+        const token = getCookie(c, "session");
+
+        if (!token) {
             return c.json(
                 { success: false, message: "Not logged in" },
                 UNAUTHORIZED,
@@ -16,17 +37,23 @@ export const isLoggedIn = (): MiddlewareHandler => {
 
         const { session: sessionData, user } = await validateSessionToken(
             c.var.db,
-            session,
+            token,
         );
 
         if (!sessionData || !user) {
+            deleteSessionTokenCookie(c);
             return c.json(
                 { success: false, message: "Not logged in" },
                 UNAUTHORIZED,
             );
         }
 
-        c.set("user", user);
+        c.set("user", {
+            id: user.id,
+            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
+        });
 
         return next();
     };

@@ -4,7 +4,7 @@ import type { PinoLogger } from "hono-pino";
 
 export interface Bindings {
     DB: D1Database;
-    ENV: string;
+    ENV: "prod" | "dev" | "test" | "stage";
     LOG_LEVEL: string;
     CLOUDFLARE_ACCOUNT_ID: string;
     CLOUDFLARE_DATABASE_ID: string;
@@ -17,9 +17,5 @@ export interface Variables {
     db: DrizzleD1Database<typeof schema> & {
         $client: D1Database;
     };
-    user: {
-        id: number;
-        email: string;
-        username: string;
-    };
+    user: schema.User;
 }
