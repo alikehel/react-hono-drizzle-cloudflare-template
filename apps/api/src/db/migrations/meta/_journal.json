@@ -22,6 +22,34 @@
             "when": 1729692122410,
             "tag": "0002_bitter_power_man",
             "breakpoints": true
+        },
+        {
+            "idx": 3,
+            "version": "6",
+            "when": 1730049751074,
+            "tag": "0003_public_the_fallen",
+            "breakpoints": true
+        },
+        {
+            "idx": 4,
+            "version": "6",
+            "when": 1730050459565,
+            "tag": "0004_fantastic_steel_serpent",
+            "breakpoints": true
+        },
+        {
+            "idx": 5,
+            "version": "6",
+            "when": 1730051269376,
+            "tag": "0005_swift_lady_bullseye",
+            "breakpoints": true
+        },
+        {
+            "idx": 6,
+            "version": "6",
+            "when": 1730051409780,
+            "tag": "0006_early_gunslinger",
+            "breakpoints": true
         }
     ]
 }
