@@ -43,14 +43,6 @@ export const createUserHandler: AppRouteHandler<
 > = async (c) => {
     const data = c.req.valid("json");
 
-    // random number to simulate a user being logged in
-    if (Math.random() > 0.5) {
-        return c.json(
-            { success: false, message: "Unauthorized" },
-            UNAUTHORIZED,
-        );
-    }
-
     const [user] = await c.var.db
         .insert(usersTable)
         .values({
