@@ -50,7 +50,7 @@ export function configureOpenAPI(app: AppType) {
 
     app.openAPIRegistry.registerComponent("securitySchemes", "cookieAuth", {
         type: "apiKey",
-        name: "cookie",
+        name: "session",
         in: "cookie",
     });
 
