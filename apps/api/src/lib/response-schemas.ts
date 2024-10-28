@@ -6,7 +6,7 @@ export const successResponseSchema = <T extends ZodSchema>(data: T) => {
         success: z.boolean().openapi({
             example: true,
         }),
-        data,
+        data: data,
     });
 };
 
