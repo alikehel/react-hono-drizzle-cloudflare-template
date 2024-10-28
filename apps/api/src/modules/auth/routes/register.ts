@@ -13,7 +13,7 @@ import type { AppRouteHandler } from "@/types/app-type";
 import { createRoute } from "@hono/zod-openapi";
 import { createSession } from "../lib/create-session";
 import { generateSessionToken } from "../lib/generate-session-token";
-import { hashPassword } from "../lib/password";
+import { hashPasswordV1 } from "../lib/password";
 import { setSessionTokenCookie } from "../lib/set-session-token-cookie";
 
 export const registerRoute = createRoute({
@@ -61,11 +61,7 @@ export const registerHandler: AppRouteHandler<typeof registerRoute> = async (
         .insert(usersTable)
         .values({
             username: data.username,
-            // hash the password
-            password: await hashPassword(
-                data.password,
-                new TextEncoder().encode(c.env.PASSWORD_SALT),
-            ),
+            password: await hashPasswordV1(data.password),
             firstName: data.firstName,
             lastName: data.lastName,
         })

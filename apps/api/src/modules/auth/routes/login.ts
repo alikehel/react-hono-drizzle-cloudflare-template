@@ -11,7 +11,7 @@ import type { AppRouteHandler } from "@/types/app-type";
 import { createRoute } from "@hono/zod-openapi";
 import { createSession } from "../lib/create-session";
 import { generateSessionToken } from "../lib/generate-session-token";
-import { verifyPassword } from "../lib/password";
+import { verifyPasswordV1 } from "../lib/password";
 import { setSessionTokenCookie } from "../lib/set-session-token-cookie";
 
 export const loginRoute = createRoute({
@@ -53,9 +53,12 @@ export const loginHandler: AppRouteHandler<typeof loginRoute> = async (c) => {
         );
     }
 
-    const validPassword = await verifyPassword(user.password, data.password);
+    const isValidPassword = await verifyPasswordV1(
+        data.password,
+        user.password,
+    );
 
-    if (!validPassword) {
+    if (!isValidPassword) {
         return c.json(
             { success: false, message: "Invalid credentials" },
             UNAUTHORIZED,

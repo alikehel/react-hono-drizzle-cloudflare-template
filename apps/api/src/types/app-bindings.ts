@@ -10,7 +10,6 @@ export interface Bindings {
     CLOUDFLARE_ACCOUNT_ID: string;
     CLOUDFLARE_DATABASE_ID: string;
     CLOUDFLARE_D1_TOKEN: string;
-    PASSWORD_SALT: string;
 }
 
 export interface Variables {

@@ -1,57 +1,51 @@
-export async function hashPassword(
-    password: string,
-    providedSalt?: Uint8Array,
-): Promise<string> {
-    const encoder = new TextEncoder();
-    // Use provided salt if available, otherwise generate a new one
-    const salt = providedSalt || crypto.getRandomValues(new Uint8Array(16));
-    const keyMaterial = await crypto.subtle.importKey(
-        "raw",
-        encoder.encode(password),
-        { name: "PBKDF2" },
-        false,
-        ["deriveBits", "deriveKey"],
-    );
-    const key = await crypto.subtle.deriveKey(
-        {
-            name: "PBKDF2",
-            salt: salt,
-            iterations: 100000,
-            hash: "SHA-256",
-        },
-        keyMaterial,
-        { name: "AES-GCM", length: 256 },
-        true,
-        ["encrypt", "decrypt"],
-    );
-    const exportedKey = (await crypto.subtle.exportKey(
-        "raw",
-        key,
-    )) as ArrayBuffer;
-    const hashBuffer = new Uint8Array(exportedKey);
-    const hashArray = Array.from(hashBuffer);
-    const hashHex = hashArray
-        .map((b) => b.toString(16).padStart(2, "0"))
-        .join("");
-    const saltHex = Array.from(salt)
-        .map((b) => b.toString(16).padStart(2, "0"))
-        .join("");
-    return `${saltHex}:${hashHex}`;
+import crypto from "node:crypto";
+
+export async function hashPasswordV1(password: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const salt = crypto.randomBytes(16).toString("hex");
+        const keyLength = 64;
+        const scryptParams = {
+            N: 16384,
+            r: 8,
+            p: 5,
+        };
+        crypto.scrypt(
+            password,
+            salt,
+            keyLength,
+            scryptParams,
+            (err, derivedKey) => {
+                if (err) reject(err);
+                resolve(`v1:${salt}:${derivedKey.toString("hex")}`);
+            },
+        );
+    });
 }
 
-export async function verifyPassword(
-    storedHash: string,
-    passwordAttempt: string,
+export async function verifyPasswordV1(
+    password: string,
+    hash: string,
 ): Promise<boolean> {
-    const [saltHex, originalHash] = storedHash.split(":");
-    const matchResult = saltHex.match(/.{1,2}/g);
-    if (!matchResult) {
-        throw new Error("Invalid salt format");
-    }
-    const salt = new Uint8Array(
-        matchResult.map((byte) => Number.parseInt(byte, 16)),
-    );
-    const attemptHashWithSalt = await hashPassword(passwordAttempt, salt);
-    const [, attemptHash] = attemptHashWithSalt.split(":");
-    return attemptHash === originalHash;
+    return new Promise((resolve, reject) => {
+        const [version, salt, key] = hash.split(":");
+        if (version !== "v1") {
+            return reject(new Error("Unsupported hash version"));
+        }
+        const keyLength = 64;
+        const scryptParams = {
+            N: 16384,
+            r: 8,
+            p: 5,
+        };
+        crypto.scrypt(
+            password,
+            salt,
+            keyLength,
+            scryptParams,
+            (err, derivedKey) => {
+                if (err) reject(err);
+                resolve(key === derivedKey.toString("hex"));
+            },
+        );
+    });
 }
