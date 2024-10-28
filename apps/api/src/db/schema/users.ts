@@ -20,7 +20,7 @@ export const usersInsertSchema = createInsertSchema(usersTable).omit({
     id: true,
 });
 
-export const usersSelectSchema = createSelectSchema(usersTable).pick({
+export const usersSelectSchema = createSelectSchema(usersTable).omit({
     password: true,
 });
 

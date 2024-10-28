@@ -48,6 +48,12 @@ export function configureOpenAPI(app: AppType) {
         );
     });
 
+    app.openAPIRegistry.registerComponent("securitySchemes", "cookieAuth", {
+        type: "apiKey",
+        name: "cookie",
+        in: "cookie",
+    });
+
     app.doc("/api", {
         openapi: "3.0.0",
         info: {
