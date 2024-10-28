@@ -1,4 +1,5 @@
-import type * as schema from "@/db/schema";
+import type { schema } from "@/db/schema";
+import type { User } from "@/modules/users/schemas";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type { PinoLogger } from "hono-pino";
 
@@ -17,5 +18,5 @@ export interface Variables {
     db: DrizzleD1Database<typeof schema> & {
         $client: D1Database;
     };
-    user: schema.User;
+    user: User;
 }

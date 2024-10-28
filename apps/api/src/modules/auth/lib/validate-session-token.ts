@@ -1,8 +1,8 @@
-import { sessionsTable, usersTable } from "@/db/schema";
-import type * as schema from "@/db/schema";
-import type { SessionValidationResult } from "@/types/sessions";
+import type { schema } from "@/db/schema";
+import { usersTable } from "@/modules/users/schemas";
 import { eq } from "drizzle-orm";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
+import { type SessionValidationResult, sessionsTable } from "../schemas";
 import { encodeHexLowerCase } from "./encode-hex-lower-case";
 import { sha256 } from "./sha256";
 

@@ -1,4 +1,4 @@
-import * as schema from "@/db/schema";
+import { schema } from "@/db/schema";
 import { drizzle } from "drizzle-orm/d1";
 import type { MiddlewareHandler } from "hono";
 

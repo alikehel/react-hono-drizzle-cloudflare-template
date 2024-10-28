@@ -1,6 +1,6 @@
+import { type User, usersTable } from "@/modules/users/schemas";
 import type { InferSelectModel } from "drizzle-orm";
 import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { usersTable } from "./users";
 
 export const sessionsTable = sqliteTable("sessions", {
     id: text().primaryKey(),
@@ -13,3 +13,7 @@ export const sessionsTable = sqliteTable("sessions", {
 });
 
 export type Session = InferSelectModel<typeof sessionsTable>;
+
+export type SessionValidationResult =
+    | { session: Session; user: User }
+    | { session: null; user: null };

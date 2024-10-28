@@ -1,8 +1,8 @@
 import { configureOpenAPI } from "./lib/configure-openapi";
-import { configureAuthRoutes, configureRoutes } from "./lib/configure-routes";
+import { configureAuthRouter, configureRouters } from "./lib/configure-routers";
 import { createApp } from "./lib/create-app";
-import { authRoutes } from "./modules/auth/routes";
-import { usersRoutes } from "./modules/users";
+import { authRouter } from "./modules/auth";
+import { usersRouter } from "./modules/users";
 
 // Create App
 
@@ -14,9 +14,9 @@ configureOpenAPI(app);
 
 // Configure Routes
 
-configureAuthRoutes(app, [...authRoutes]);
+configureAuthRouter(app, authRouter);
 
-configureRoutes(app, [...usersRoutes]);
+configureRouters(app, [usersRouter]);
 
 // Export App
 

@@ -1,13 +1,13 @@
-import { createUser } from "./create-user";
-import { deleteUser } from "./delete-user";
-import { getUser } from "./get-user";
-import { getUsers } from "./get-users";
-import { updateUser } from "./update-user";
+import { createRouter } from "@/lib/create-app";
+import { createUserHandler, createUserRoute } from "./routes/create-user";
+import { deleteUserHandler, deleteUserRoute } from "./routes/delete-user";
+import { getUserHandler, getUserRoute } from "./routes/get-user";
+import { getUsersHandler, getUsersRoute } from "./routes/get-users";
+import { updateUserHandler, updateUserRoute } from "./routes/update-user";
 
-export const usersRoutes = [
-    createUser,
-    updateUser,
-    getUsers,
-    getUser,
-    deleteUser,
-];
+export const usersRouter = createRouter()
+    .openapi(createUserRoute, createUserHandler)
+    .openapi(deleteUserRoute, deleteUserHandler)
+    .openapi(getUserRoute, getUserHandler)
+    .openapi(getUsersRoute, getUsersHandler)
+    .openapi(updateUserRoute, updateUserHandler);
