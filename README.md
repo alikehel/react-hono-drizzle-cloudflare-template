@@ -59,9 +59,11 @@ pnpm run dev
 - [ ] Drizzle Pagination (https://orm.drizzle.team/docs/guides/limit-offset-pagination, https://planetscale.com/blog/mysql-pagination#cursor-based-pagination-performance, https://x.com/KaraBharat/status/1848378675953377616)
 - [ ] Drizzle Migrations & Seeding (https://www.youtube.com/watch?v=vLze97zZKsU)
 - [ ] Move to Turso because D1 has 10 GB limit (Maybe also move to neon for postgres)
+- [ ] Password is in the response even if it's not in the zod schema
 
 ### Less Important
 
+- [ ] Use oslojs
 - [ ] Better Readme
 - [ ] Add vitest for testing
 - [ ] A script for setting up everything
