@@ -10,7 +10,7 @@ import {
     usersTable,
 } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
-import { createRoute } from "@hono/zod-openapi";
+import { createRoute, z } from "@hono/zod-openapi";
 import { createSession } from "../lib/create-session";
 import { generateSessionToken } from "../lib/generate-session-token";
 import { hashPasswordV1 } from "../lib/password";
@@ -27,7 +27,12 @@ export const registerRoute = createRoute({
     },
     responses: {
         [CREATED]: jsonContent(
-            successResponseSchema(usersSelectSchema),
+            successResponseSchema(
+                z.object({
+                    user: usersSelectSchema,
+                    token: z.string(),
+                }),
+            ),
             "User registered",
         ),
         [UNPROCESSABLE_ENTITY]: jsonContent(
@@ -65,7 +70,12 @@ export const registerHandler: AppRouteHandler<typeof registerRoute> = async (
             firstName: data.firstName,
             lastName: data.lastName,
         })
-        .returning();
+        .returning({
+            id: usersTable.id,
+            username: usersTable.username,
+            firstName: usersTable.firstName,
+            lastName: usersTable.lastName,
+        });
 
     const token = generateSessionToken();
     const session = await createSession(db, token, newUser.id);
@@ -75,7 +85,7 @@ export const registerHandler: AppRouteHandler<typeof registerRoute> = async (
     return c.json(
         {
             success: true,
-            data: { ...newUser, token },
+            data: { user: newUser, token },
         },
         CREATED,
     );

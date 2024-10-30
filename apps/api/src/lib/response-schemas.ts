@@ -1,12 +1,12 @@
 import type { ZodSchema } from "@/types/zod-schema";
 import { z } from "@hono/zod-openapi";
 
-export const successResponseSchema = <T extends ZodSchema>(data: T) => {
+export const successResponseSchema = <T extends ZodSchema>(schema: T) => {
     return z.object({
         success: z.boolean().openapi({
             example: true,
         }),
-        data: data,
+        data: schema,
     });
 };
 
@@ -18,3 +18,12 @@ export const errorResponseSchema = z.object({
 });
 
 export type errorResponseType = z.infer<typeof errorResponseSchema>;
+
+export const paginationResponseSchema = z.object({
+    currentPage: z.number(),
+    itemsPerPage: z.number(),
+    totalPagesCount: z.number(),
+    totalItemsCount: z.number(),
+});
+
+export type paginationResponseType = z.infer<typeof paginationResponseSchema>;

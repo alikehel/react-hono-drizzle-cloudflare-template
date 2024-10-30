@@ -31,7 +31,11 @@ export const updateUserRoute = createRoute({
     },
     responses: {
         [OK]: jsonContent(
-            successResponseSchema(usersSelectSchema),
+            successResponseSchema(
+                z.object({
+                    user: usersSelectSchema,
+                }),
+            ),
             "User updated",
         ),
         [UNPROCESSABLE_ENTITY]: jsonContent(
@@ -57,11 +61,16 @@ export const updateUserHandler: AppRouteHandler<
             lastName: data.lastName,
         })
         .where(eq(usersTable.id, pathParams.userId))
-        .returning();
+        .returning({
+            id: usersTable.id,
+            username: usersTable.username,
+            firstName: usersTable.firstName,
+            lastName: usersTable.lastName,
+        });
 
     if (!user) {
         return c.json({ success: false, message: "User not found" }, NOT_FOUND);
     }
 
-    return c.json({ success: true, data: user }, OK);
+    return c.json({ success: true, data: { user: user } }, OK);
 };

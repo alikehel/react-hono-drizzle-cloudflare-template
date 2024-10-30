@@ -50,7 +50,7 @@ export const isLoggedIn = (): MiddlewareHandler => {
             username: user.username,
             firstName: user.firstName,
             lastName: user.lastName,
-            sessionId: sessionData.id,
+            // sessionId: sessionData.id,
         });
 
         return next();

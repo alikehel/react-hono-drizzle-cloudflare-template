@@ -26,7 +26,11 @@ export const deleteUserRoute = createRoute({
     },
     responses: {
         [OK]: jsonContent(
-            successResponseSchema(usersSelectSchema),
+            successResponseSchema(
+                z.object({
+                    user: usersSelectSchema,
+                }),
+            ),
             "Delete user",
         ),
         [NOT_FOUND]: jsonContent(errorResponseSchema, "User not found"),
@@ -41,11 +45,16 @@ export const deleteUserHandler: AppRouteHandler<
     const [user] = await c.var.db
         .delete(usersTable)
         .where(eq(usersTable.id, pathParams.userId))
-        .returning();
+        .returning({
+            id: usersTable.id,
+            username: usersTable.username,
+            firstName: usersTable.firstName,
+            lastName: usersTable.lastName,
+        });
 
     if (!user) {
         return c.json({ success: false, message: "User not found" }, NOT_FOUND);
     }
 
-    return c.json({ success: true, data: user }, OK);
+    return c.json({ success: true, data: { user: user } }, OK);
 };

@@ -23,7 +23,14 @@ export const getUserRoute = createRoute({
         ),
     },
     responses: {
-        [OK]: jsonContent(successResponseSchema(usersSelectSchema), "Get user"),
+        [OK]: jsonContent(
+            successResponseSchema(
+                z.object({
+                    user: usersSelectSchema,
+                }),
+            ),
+            "Get user",
+        ),
         [NOT_FOUND]: jsonContent(errorResponseSchema, "User not found"),
     },
 });
@@ -35,11 +42,17 @@ export const getUserHandler: AppRouteHandler<typeof getUserRoute> = async (
 
     const user = await c.var.db.query.usersTable.findFirst({
         where: (usersTable, { eq }) => eq(usersTable.id, pathParams.userId),
+        columns: {
+            id: true,
+            username: true,
+            firstName: true,
+            lastName: true,
+        },
     });
 
     if (!user) {
         return c.json({ success: false, message: "User not found" }, NOT_FOUND);
     }
 
-    return c.json({ success: true, data: user }, OK);
+    return c.json({ success: true, data: { user: user } }, OK);
 };

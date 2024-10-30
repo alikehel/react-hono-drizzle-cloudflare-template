@@ -14,7 +14,7 @@ import {
     usersTable,
 } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
-import { createRoute } from "@hono/zod-openapi";
+import { createRoute, z } from "@hono/zod-openapi";
 
 export const createUserRoute = createRoute({
     tags: ["Users"],
@@ -27,7 +27,11 @@ export const createUserRoute = createRoute({
     },
     responses: {
         [CREATED]: jsonContent(
-            successResponseSchema(usersSelectSchema),
+            successResponseSchema(
+                z.object({
+                    user: usersSelectSchema,
+                }),
+            ),
             "User created",
         ),
         [UNAUTHORIZED]: jsonContent(errorResponseSchema, "Unauthorized"),
@@ -51,7 +55,12 @@ export const createUserHandler: AppRouteHandler<
             firstName: data.firstName,
             lastName: data.lastName,
         })
-        .returning();
+        .returning({
+            id: usersTable.id,
+            username: usersTable.username,
+            firstName: usersTable.firstName,
+            lastName: usersTable.lastName,
+        });
 
-    return c.json({ success: true, data: user }, CREATED);
+    return c.json({ success: true, data: { user: user } }, CREATED);
 };

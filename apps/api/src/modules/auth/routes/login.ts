@@ -8,7 +8,7 @@ import {
 import { usersInsertSchema, usersSelectSchema } from "@/modules/users/schemas";
 import type {} from "@/types/app-bindings";
 import type { AppRouteHandler } from "@/types/app-type";
-import { createRoute } from "@hono/zod-openapi";
+import { createRoute, z } from "@hono/zod-openapi";
 import { createSession } from "../lib/create-session";
 import { generateSessionToken } from "../lib/generate-session-token";
 import { verifyPasswordV1 } from "../lib/password";
@@ -31,7 +31,12 @@ export const loginRoute = createRoute({
     },
     responses: {
         [OK]: jsonContent(
-            successResponseSchema(usersSelectSchema),
+            successResponseSchema(
+                z.object({
+                    user: usersSelectSchema,
+                    token: z.string(),
+                }),
+            ),
             "User logged in",
         ),
         [UNAUTHORIZED]: jsonContent(errorResponseSchema, "Invalid credentials"),
@@ -73,7 +78,7 @@ export const loginHandler: AppRouteHandler<typeof loginRoute> = async (c) => {
     return c.json(
         {
             success: true,
-            data: { ...user, token },
+            data: { user: user, token },
         },
         OK,
     );
