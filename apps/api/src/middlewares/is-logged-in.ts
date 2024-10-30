@@ -1,14 +1,11 @@
 import { UNAUTHORIZED } from "@/lib/http-status-codes";
 import { deleteSessionTokenCookie } from "@/modules/auth/lib/delete-session-token-cookie";
 import { validateSessionToken } from "@/modules/auth/lib/validate-session-token";
-import type { Bindings, Variables } from "@/types/app-bindings";
-import type { MiddlewareHandler } from "hono";
+import type {} from "@/types/app-bindings";
+import type { MiddlewareHandler } from "@/types/app-type";
 import { getCookie } from "hono/cookie";
 
-export const isLoggedIn = (): MiddlewareHandler<{
-    Bindings: Bindings;
-    Variables: Variables;
-}> => {
+export const isLoggedIn = (): MiddlewareHandler => {
     return async (c, next) => {
         // csrf protection
         if (c.req.method !== "GET") {

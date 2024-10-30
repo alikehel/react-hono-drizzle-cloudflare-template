@@ -10,6 +10,9 @@ export interface Bindings {
     CLOUDFLARE_ACCOUNT_ID: string;
     CLOUDFLARE_DATABASE_ID: string;
     CLOUDFLARE_D1_TOKEN: string;
+    ALLOWED_HOST: string;
+    GITHUB_REF_NAME: string;
+    GITHUB_SHA: string;
 }
 
 export interface Variables {

@@ -1,4 +1,4 @@
-import type { MiddlewareHandler } from "hono";
+import type { MiddlewareHandler } from "@/types/app-type";
 
 export const serveEmojiFavicon = (emoji: string): MiddlewareHandler => {
     return async (c, next) => {
