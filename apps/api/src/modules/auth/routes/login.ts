@@ -78,7 +78,15 @@ export const loginHandler: AppRouteHandler<typeof loginRoute> = async (c) => {
     return c.json(
         {
             success: true,
-            data: { user: user, token },
+            data: {
+                user: {
+                    id: user.id,
+                    username: user.username,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                },
+                token,
+            },
         },
         OK,
     );
