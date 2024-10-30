@@ -30,7 +30,7 @@ export const registerRoute = createRoute({
             successResponseSchema(
                 z.object({
                     user: usersSelectSchema,
-                    token: z.string(),
+                    session: z.string(),
                 }),
             ),
             "User registered",
@@ -85,7 +85,7 @@ export const registerHandler: AppRouteHandler<typeof registerRoute> = async (
     return c.json(
         {
             success: true,
-            data: { user: newUser, token },
+            data: { user: newUser, session: token },
         },
         CREATED,
     );

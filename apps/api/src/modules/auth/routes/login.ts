@@ -34,7 +34,7 @@ export const loginRoute = createRoute({
             successResponseSchema(
                 z.object({
                     user: usersSelectSchema,
-                    token: z.string(),
+                    session: z.string(),
                 }),
             ),
             "User logged in",
@@ -85,7 +85,7 @@ export const loginHandler: AppRouteHandler<typeof loginRoute> = async (c) => {
                     firstName: user.firstName,
                     lastName: user.lastName,
                 },
-                token,
+                session: token,
             },
         },
         OK,
