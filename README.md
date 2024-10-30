@@ -1,10 +1,14 @@
-# React Hono AuthJS Drizzle Cloudflare Template
+# React Hono Drizzle Cloudflare Template
+
+## Links
+
+- https://prod.web.react-hono-drizzle-cloudflare-template.alikehel.dev/
+- https://prod.api.react-hono-drizzle-cloudflare-template.alikehel.dev/
 
 ## Technology Stack
 
 -   [React](https://reactjs.org/)
 -   [HonoJS](https://hono.io/)
--   [AuthJS](https://authjs.dev/)
 -   [DrizzleORM](https://orm.drizzle.team/)
 -   [Cloudflare](https://www.cloudflare.com/)
 
@@ -35,7 +39,7 @@ Example: `https://example.com/user-profile/orders/:orderId/details?sort_by=date&
 1. Clone the repository
 
 ```bash
-git clone https://github.com/alikehel/react-hono-authjs-drizzle-cloudflare-template
+git clone https://github.com/alikehel/react-hono-drizzle-cloudflare-template
 ```
 
 2. Install dependencies

@@ -1,4 +1,4 @@
-name = "react-hono-authjs-drizzle-cloudflare-template-api"
+name = "react-hono-drizzle-cloudflare-template-api"
 main = "src/app.ts"
 compatibility_date = "2024-10-04"
 compatibility_flags = ["nodejs_compat"]
@@ -7,23 +7,23 @@ minify = true
 [env.dev]
 vars = { ALLOWED_HOST = "*", ENV = "dev" }
 d1_databases = [
-    { binding = "DB", database_name = "react-hono-authjs-drizzle-cloudflare-template-db-prod", database_id = "b1744292-8c04-4ec0-b775-2d9de5e158a2", migrations_dir = "src/db/migrations" },
+    { binding = "DB", database_name = "react-hono-drizzle-cloudflare-template-db-prod", database_id = "0843dcbc-c9fe-4ea5-ab8f-ca20630e09fb", migrations_dir = "src/db/migrations" },
 ]
 
 [env.stage]
-name = "react-hono-authjs-drizzle-cloudflare-template-api-stage"
+name = "react-hono-drizzle-cloudflare-template-api-stage"
 workers_dev = true
-vars = { ALLOWED_HOST = "https://react-hono-authjs-drizzle-cloudflare-template-web-stage.pages.dev/", ENV = "stage" }
+vars = { ALLOWED_HOST = "https://stage.web.react-hono-drizzle-cloudflare-template.alikehel.dev/", ENV = "stage" }
 d1_databases = [
-    { binding = "DB", database_name = "react-hono-authjs-drizzle-cloudflare-template-db-prod", database_id = "b1744292-8c04-4ec0-b775-2d9de5e158a2", migrations_dir = "src/db/migrations" },
+    { binding = "DB", database_name = "react-hono-drizzle-cloudflare-template-db-prod", database_id = "0843dcbc-c9fe-4ea5-ab8f-ca20630e09fb", migrations_dir = "src/db/migrations" },
 ]
 
 [env.prod]
-name = "react-hono-authjs-drizzle-cloudflare-template-api-prod"
+name = "react-hono-drizzle-cloudflare-template-api-prod"
 workers_dev = true
-vars = { ALLOWED_HOST = "https://react-hono-authjs-drizzle-cloudflare-template-web-prod.pages.dev/", ENV = "prod" }
+vars = { ALLOWED_HOST = "https://prod.web.react-hono-drizzle-cloudflare-template.alikehel.dev/", ENV = "prod" }
 d1_databases = [
-    { binding = "DB", database_name = "react-hono-authjs-drizzle-cloudflare-template-db-prod", database_id = "b1744292-8c04-4ec0-b775-2d9de5e158a2", migrations_dir = "src/db/migrations" },
+    { binding = "DB", database_name = "react-hono-drizzle-cloudflare-template-db-prod", database_id = "0843dcbc-c9fe-4ea5-ab8f-ca20630e09fb", migrations_dir = "src/db/migrations" },
 ]
 
 [observability]
