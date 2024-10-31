@@ -3,13 +3,14 @@
     "private": true,
     "version": "0.0.0",
     "scripts": {
-        "dev": "pnpm wrangler dev --env dev --remote",
+        "dev": "pnpm wrangler dev --env dev",
         "typecheck": "tsc --noEmit",
         "deploy": "wrangler deploy --minify",
         "deploy:stage": "pnpm wrangler deploy --minify --env stage --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
         "deploy:prod": "pnpm wrangler deploy --minify --env prod --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
         "db:generate": "pnpm run dotenvx -- drizzle-kit generate",
-        "db:migrate": "pnpm run dotenvx -- drizzle-kit migrate",
+        "db:migrate:dev": "pnpm run dotenvx --env ENV=dev -- drizzle-kit migrate",
+        "db:migrate:prod": "pnpm run dotenvx --env ENV=prod -- drizzle-kit migrate",
         "db:push": "pnpm run dotenvx -- drizzle-kit push",
         "db:studio": "pnpm run dotenvx -- drizzle-kit studio",
         "db:up": "pnpm run dotenvx -- drizzle-kit up",
@@ -33,6 +34,7 @@
     "devDependencies": {
         "@cloudflare/workers-types": "^4.20240925.0",
         "@dotenvx/dotenvx": "^1.20.0",
+        "better-sqlite3": "^11.5.0",
         "drizzle-kit": "^0.26.2",
         "pino-pretty": "^11.3.0",
         "wrangler": "^3.79.0"
