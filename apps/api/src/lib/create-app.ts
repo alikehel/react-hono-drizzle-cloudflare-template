@@ -1,5 +1,6 @@
 import { cors } from "@/middlewares/cors";
 import { db } from "@/middlewares/db";
+import { env } from "@/middlewares/env";
 import { git } from "@/middlewares/git";
 import { notFound } from "@/middlewares/not-found";
 import { onError } from "@/middlewares/on-error";
@@ -33,6 +34,12 @@ export const createRouter = () => {
 export const createApp = () => {
     const app = createRouter();
 
+    app.notFound(notFound);
+
+    app.use(pinoLogger());
+
+    app.on("GET", ["/", "/api", "/api/scalar", "/api/swagger"], env());
+
     app.use(git());
 
     app.use("*", cors());
@@ -41,11 +48,7 @@ export const createApp = () => {
 
     app.use(prettyJSON());
 
-    app.use(pinoLogger());
-
     app.onError(onError);
-
-    app.notFound(notFound);
 
     app.use(db());
 

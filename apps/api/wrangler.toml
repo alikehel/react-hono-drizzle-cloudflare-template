@@ -5,7 +5,7 @@ compatibility_flags = ["nodejs_compat"]
 minify = true
 
 [env.dev]
-vars = { ALLOWED_HOST = "*", ENV = "dev" }
+vars = { ALLOWED_HOST = "*", ENV = "dev", LOG_LEVEL = "debug" }
 d1_databases = [
     { binding = "DB", database_name = "react-hono-drizzle-cloudflare-template-db-prod", database_id = "0843dcbc-c9fe-4ea5-ab8f-ca20630e09fb", migrations_dir = "src/db/migrations" },
 ]
@@ -13,7 +13,7 @@ d1_databases = [
 [env.stage]
 name = "react-hono-drizzle-cloudflare-template-api-stage"
 workers_dev = true
-vars = { ALLOWED_HOST = "*", ENV = "stage" }
+vars = { ALLOWED_HOST = "*", ENV = "stage", LOG_LEVEL = "debug" }
 d1_databases = [
     { binding = "DB", database_name = "react-hono-drizzle-cloudflare-template-db-prod", database_id = "0843dcbc-c9fe-4ea5-ab8f-ca20630e09fb", migrations_dir = "src/db/migrations" },
 ]
@@ -21,7 +21,7 @@ d1_databases = [
 [env.prod]
 name = "react-hono-drizzle-cloudflare-template-api-prod"
 workers_dev = true
-vars = { ALLOWED_HOST = "*", ENV = "prod" }
+vars = { ALLOWED_HOST = "*", ENV = "prod", LOG_LEVEL = "info" }
 d1_databases = [
     { binding = "DB", database_name = "react-hono-drizzle-cloudflare-template-db-prod", database_id = "0843dcbc-c9fe-4ea5-ab8f-ca20630e09fb", migrations_dir = "src/db/migrations" },
 ]
