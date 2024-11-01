@@ -38,7 +38,7 @@ export const createApp = () => {
 
     app.use(pinoLogger());
 
-    app.on("GET", ["/"], env());
+    app.on("GET", ["/env"], env(), (c) => c.text("No ENV Variables Missing"));
 
     app.use(git());
 
