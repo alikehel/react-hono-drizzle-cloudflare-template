@@ -38,7 +38,7 @@ export const createApp = () => {
 
     app.use(pinoLogger());
 
-    app.on("GET", ["/", "/api", "/api/scalar", "/api/swagger"], env());
+    app.on("GET", ["/"], env());
 
     app.use(git());
 
