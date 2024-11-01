@@ -14,7 +14,9 @@ export const errorResponseSchema = z.object({
     success: z.boolean().openapi({
         example: false,
     }),
-    message: z.string(),
+    error: z.object({
+        message: z.string(),
+    }),
 });
 
 export type errorResponseType = z.infer<typeof errorResponseSchema>;

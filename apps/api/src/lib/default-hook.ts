@@ -8,7 +8,9 @@ export const defaultHook: Hook<any, any, any, any> = (result, c) => {
         return c.json(
             {
                 success: result.success,
-                message: fromError(result.error).toString(),
+                error: {
+                    message: fromError(result.error).toString(),
+                },
             },
             UNPROCESSABLE_ENTITY,
         );

@@ -51,7 +51,15 @@ export const getUserHandler: AppRouteHandler<typeof getUserRoute> = async (
     });
 
     if (!user) {
-        return c.json({ success: false, message: "User not found" }, NOT_FOUND);
+        return c.json(
+            {
+                success: false,
+                error: {
+                    message: "User not found",
+                },
+            },
+            NOT_FOUND,
+        );
     }
 
     return c.json({ success: true, data: { user: user } }, OK);

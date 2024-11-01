@@ -17,7 +17,12 @@ export const isLoggedIn = (): MiddlewareHandler => {
                 origin !== new URL(c.req.url).origin
             ) {
                 return c.json(
-                    { success: false, message: "Invalid origin" },
+                    {
+                        success: false,
+                        error: {
+                            message: "Invalid origin",
+                        },
+                    },
                     UNAUTHORIZED,
                 );
             }
@@ -27,7 +32,12 @@ export const isLoggedIn = (): MiddlewareHandler => {
 
         if (!token) {
             return c.json(
-                { success: false, message: "Not logged in" },
+                {
+                    success: false,
+                    error: {
+                        message: "Not logged in",
+                    },
+                },
                 UNAUTHORIZED,
             );
         }
@@ -40,7 +50,12 @@ export const isLoggedIn = (): MiddlewareHandler => {
         if (!sessionData || !user) {
             deleteSessionTokenCookie(c);
             return c.json(
-                { success: false, message: "Not logged in" },
+                {
+                    success: false,
+                    error: {
+                        message: "Not logged in",
+                    },
+                },
                 UNAUTHORIZED,
             );
         }

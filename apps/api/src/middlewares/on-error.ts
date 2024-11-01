@@ -16,13 +16,17 @@ export const onError: ErrorHandler<{
             : INTERNAL_SERVER_ERROR;
     // const env = c.env?.ENV || c.env?.ENV;
     c.var.logger.error({
-        message: err.message,
-        stack: err.stack,
+        error: {
+            message: err.message,
+            stack: err.stack,
+        },
     });
     return c.json(
         {
             success: false,
-            message: err.message,
+            error: {
+                message: err.message,
+            },
             // stack: env === "prod" ? undefined : err.stack,
         } satisfies errorResponseType,
         statusCode,

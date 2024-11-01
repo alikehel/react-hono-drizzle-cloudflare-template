@@ -13,6 +13,7 @@ import { createSession } from "../lib/create-session";
 import { generateSessionToken } from "../lib/generate-session-token";
 import { verifyPasswordV1 } from "../lib/password";
 import { setSessionTokenCookie } from "../lib/set-session-token-cookie";
+import { sessionTokenSchema } from "../schemas";
 
 export const loginRoute = createRoute({
     tags: ["Auth"],
@@ -34,7 +35,7 @@ export const loginRoute = createRoute({
             successResponseSchema(
                 z.object({
                     user: usersSelectSchema,
-                    session: z.string(),
+                    session: sessionTokenSchema,
                 }),
             ),
             "User logged in",
@@ -53,7 +54,7 @@ export const loginHandler: AppRouteHandler<typeof loginRoute> = async (c) => {
 
     if (!user) {
         return c.json(
-            { success: false, message: "Invalid credentials" },
+            { success: false, error: { message: "Invalid credentials" } },
             UNAUTHORIZED,
         );
     }
@@ -65,7 +66,12 @@ export const loginHandler: AppRouteHandler<typeof loginRoute> = async (c) => {
 
     if (!isValidPassword) {
         return c.json(
-            { success: false, message: "Invalid credentials" },
+            {
+                success: false,
+                error: {
+                    message: "Invalid credentials",
+                },
+            },
             UNAUTHORIZED,
         );
     }
@@ -85,7 +91,11 @@ export const loginHandler: AppRouteHandler<typeof loginRoute> = async (c) => {
                     firstName: user.firstName,
                     lastName: user.lastName,
                 },
-                session: token,
+                session: {
+                    token: token,
+                    userId: session.userId,
+                    expiresAt: session.expiresAt,
+                },
             },
         },
         OK,

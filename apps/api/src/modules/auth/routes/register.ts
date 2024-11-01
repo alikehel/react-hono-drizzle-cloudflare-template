@@ -15,6 +15,7 @@ import { createSession } from "../lib/create-session";
 import { generateSessionToken } from "../lib/generate-session-token";
 import { hashPasswordV1 } from "../lib/password";
 import { setSessionTokenCookie } from "../lib/set-session-token-cookie";
+import { sessionTokenSchema } from "../schemas";
 
 export const registerRoute = createRoute({
     tags: ["Auth"],
@@ -30,7 +31,7 @@ export const registerRoute = createRoute({
             successResponseSchema(
                 z.object({
                     user: usersSelectSchema,
-                    session: z.string(),
+                    session: sessionTokenSchema,
                 }),
             ),
             "User registered",
@@ -56,7 +57,9 @@ export const registerHandler: AppRouteHandler<typeof registerRoute> = async (
         return c.json(
             {
                 success: false,
-                message: "User already exists",
+                error: {
+                    message: "User already exists",
+                },
             },
             UNPROCESSABLE_ENTITY,
         );
@@ -85,7 +88,14 @@ export const registerHandler: AppRouteHandler<typeof registerRoute> = async (
     return c.json(
         {
             success: true,
-            data: { user: newUser, session: token },
+            data: {
+                user: newUser,
+                session: {
+                    token: token,
+                    expiresAt: session.expiresAt,
+                    userId: session.userId,
+                },
+            },
         },
         CREATED,
     );
